@@ -6,8 +6,8 @@ library(ggplot2)
 
 jpeg(filename='FIG/ggplot_LE_U.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
-ggplot(df, aes(wind_speed, LE)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green',alpha=0, method = "lm") +
+ggplot(df, aes(wind_speed, LE)) + geom_point(alpha=0.4) + 
+  geom_smooth(color = 'blue', alpha = 0.25, method = "lm") +
   xlab('U ') + coord_cartesian(xlim=c(0,2.5), ylim=c(-12,50)) +
   theme_bw()
 dev.off()
