@@ -6,8 +6,8 @@ library(ggplot2)
 
 jpeg(filename='FIG/ggplot_LE_U.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
-ggplot(df, aes(wind_speed, LE)) + geom_point(alpha=0.4) + 
-  geom_smooth(color = 'blue', alpha = 0.25, method = "lm") +
+ggplot(df, aes(wind_speed, LE)) + geom_point(alpha=0.2) + 
+  geom_smooth(color = 'grey',alpha=0, method = "lm") +
   xlab('U ') + coord_cartesian(xlim=c(0,2.5), ylim=c(-12,50)) +
   theme_bw()
 dev.off()
@@ -16,7 +16,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_LE_udeltae.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(U_deltaE, LE)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green',alpha=0, method = "lm") +
+  geom_smooth(color = 'grey',alpha=0, method = "lm") +
   xlab('U delta e') + coord_cartesian(xlim=c(0,1.7), ylim=c(-12,50)) +
   theme_bw()
 dev.off()
@@ -24,7 +24,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_LE_deltae.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(delta_e, LE)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green',alpha=0, method = "lm") +
+  geom_smooth(color = 'grey',alpha=0, method = "lm") +
   xlab('Delta e ') + coord_cartesian(xlim=c(0,1.3), ylim=c(-12,50)) +
   theme_bw()
 dev.off()
@@ -32,7 +32,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_LE_ustar.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(`u*`,`LE`)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green',alpha=0, method = "lm") +
+  geom_smooth(color = 'grey',alpha=0, method = "lm") +
   coord_cartesian(xlim=c(0,0.2), ylim=c(-12,50))+
   theme_bw()
 dev.off()
@@ -41,7 +41,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_H_udeltat.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(U_deltaT, H)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green', method = "lm") +
+  geom_smooth(color = 'grey', method = "lm") +
   xlab('U delta T') + coord_cartesian(xlim=c(0,2.5), ylim=c(-3,13)) +
   theme_bw()
 dev.off()
@@ -50,7 +50,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_H_U .jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(wind_speed, H)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green',method = "lm") +
+  geom_smooth(color = 'grey',method = "lm") +
   xlab('U ') + coord_cartesian(xlim=c(0,2.5), ylim=c(-3,13)) +
   theme_bw()
 dev.off()
@@ -58,7 +58,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_H_deltat.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(delta_T, H)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green', method = "lm") +
+  geom_smooth(color = 'grey', method = "lm") +
   xlab('ΔT') + coord_cartesian(xlim=c(-3.6,2.5), ylim=c(-3,13)) +
   theme_bw()
 dev.off()
@@ -66,7 +66,7 @@ dev.off()
 jpeg(filename='FIG/ggplot_H_ustar.jpg', unit = 'cm', width = 10, height = 10, res = 360)
 par(mar = c(4,4,1,1))
 ggplot(df, aes(`u*`,`H`)) + geom_point(alpha=0.2) + 
-  geom_smooth(color = 'green',alpha=0, method = "lm") +
+  geom_smooth(color = 'grey',alpha=0, method = "lm") +
   coord_cartesian(xlim=c(0,0.15), ylim=c(-7,20))+
   theme_bw()
 dev.off()
@@ -148,16 +148,10 @@ ggplot(filtered_data, aes(x = DateTime, y = H)) +
        y = "H") +
   theme_minimal()
 
+#### LE ####
 
-
-
-ggplot(df_day, aes(df_day$DOY,df_day$LE)) + geom_point(alpha = 0.1) + 
-  geom_smooth(col = 'green', alpha = 0, method = "lm") +
-  coord_cartesian(xlim=c(65,275), ylim=c(0,20))+
-  theme_bw()
-
-
-
+jpeg(filename='FIG/ggplot_LE.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
 ggplot(df_day, aes(df_day$date, df_day$LE)) + geom_point() +
   geom_smooth(aes(df_day$date,df_day$LE), 
               col = 'grey', alpha = 0.3) +
@@ -165,10 +159,185 @@ ggplot(df_day, aes(df_day$date, df_day$LE)) + geom_point() +
   theme_bw() + 
   xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
   ylim(0,20) 
+dev.off()
+
+#### U ####
+
+jpeg(filename='FIG/ggplot_U.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$wind_speed)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$wind_speed), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "wind_speed") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(0,1) 
+dev.off()
+
+#### H ####
+
+
+jpeg(filename='FIG/ggplot_H.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$H)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$H), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "H") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(0,5) 
+dev.off()
+
+#### deltae ####
+
+
+jpeg(filename='FIG/ggplot_deltae.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$delta_e)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$delta_e), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "deltae") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(0,1.05) 
+dev.off()
+
+
+#### deltat ####
+
+
+jpeg(filename='FIG/ggplot_deltat.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$delta_T)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$delta_T), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "deltae_T") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(-2,3) 
+dev.off()
+
+
+#### udeltae ####
+
+
+jpeg(filename='FIG/ggplot_udeltae.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$U_deltaE)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$U_deltaE), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "udeltae") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(0,1) 
+dev.off()
+
+
+
+#### udeltat ####
+
+
+jpeg(filename='FIG/ggplot_udeltat.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$U_deltaT)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$U_deltaT), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "udeltat") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(-1.5,1.5) 
+dev.off()
 
 
 
 
 
 
-  
+jpeg(filename='FIG/ggplot_LE.jpg', unit = 'cm', width = 15, height = 10, res = 360)
+par(mar = c(4,4,1,1))
+ggplot(df_day, aes(df_day$date, df_day$LE)) + geom_point() +
+  geom_smooth(aes(df_day$date,df_day$LE), 
+              col = 'grey', alpha = 0.3) +
+  labs(x = "Date", y = "LE") +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(0,20) 
+dev.off()
+
+
+
+#### time series with all months LE  ####
+
+
+plot1 <- ggplot(df_day, aes(as.Date(date), LE)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(0,20) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "LE") + theme_bw()
+
+plot1
+
+
+#### H ####
+
+ggplot(df_day, aes(as.Date(date), H)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(0,5) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "H") + theme_bw()
+
+
+#### U ####
+
+
+ggplot(df_day, aes(as.Date(date), wind_speed)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(0,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "win_speed") + theme_bw()
+
+
+#### deltae ####
+
+
+ggplot(df_day, aes(as.Date(date), delta_e)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(0,1.05) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "deltae") + theme_bw()
+
+
+
+#### deltat ####
+
+
+ggplot(df_day, aes(as.Date(date), delta_T)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(-2,3) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "delta_T") + theme_bw()
+
+
+#### Udeltae ####
+
+ggplot(df_day, aes(as.Date(date), U_deltaE)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(0,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "udeltae") + theme_bw()
+
+
+#### Udeltat ####
+
+ggplot(df_day, aes(as.Date(date), U_deltaT)) + 
+  geom_line() + 
+  geom_smooth(col = 'blue', alpha = 0.3) +
+  ylim(-1,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+  labs(x = " ", y = "udeltat") + theme_bw()
