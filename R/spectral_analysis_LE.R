@@ -20,7 +20,7 @@ missing_values_filled <- is.na(df_ts_filled)
 
 
 # Perform spectral analysis on the filled time series
-df_ts_filled_spectrum <- spec.pgram(df_ts_filled)
+df_ts_filled_spectrum <- spec.pgram(df_ts_filled, plot = FALSE)
 
 # Plot the spectrum
 plot(df_ts_filled_spectrum, main = "Spectral Analysis (with Missing Values Filled)")
@@ -63,7 +63,7 @@ smoothed_spectrum <- smooth.spline(df_ts_filled_spectrum$freq,
                                    spar = 0.3)  # Adjust spar as needed
 
 # Plot the smoothed periodogram
-plot(smoothed_spectrum, type = "l", main = "Smoothed Periodogram")
+#plot(smoothed_spectrum, type = "l", main = "Smoothed Periodogram")
 
 df_prominence <- data.frame(x = smoothed_spectrum$x, y = smoothed_spectrum$y)
 
@@ -95,7 +95,8 @@ abline(v = your_data$x[significant_peaks], col = "red", lty = 2)
 for (peak_position in significant_peaks) {
   frequency_label <- your_data$x[peak_position]  # Replace with the correct way to get the frequency value
   text(x = your_data$x[peak_position], y = max(your_data$y), 
-       labels = format(frequency_label, nsmall = 4), pos = 1, col = "red")
+       labels = round(frequency_label, 3), 
+       pos = 1, col = "red", cex = 0.8)
 }
 
 1 / (your_data$x[significant_peaks] / 30) / 60 / 24
