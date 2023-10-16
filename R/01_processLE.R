@@ -135,8 +135,8 @@ df$H[which(df$qc_H == 2)] <- NA
 
 
 ###### WD filtering, higher than 45 and less than 315 ######
-#df$LE[df$wind_dir > 45 & df$wind_dir < 315] <- NA
-#df$H[df$wind_dir > 45 & df$wind_dir< 315] <- NA
+df$LE[df$wind_dir > 45 & df$wind_dir < 315] <- NA
+df$H[df$wind_dir > 45 & df$wind_dir< 315] <- NA
 
 ###### Rain filtering ######
 df$LE[df$P_RAIN_1_1_1 > 0] <- NA

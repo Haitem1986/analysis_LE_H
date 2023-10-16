@@ -4,96 +4,96 @@ library(ggtext)
 library(ggplot2)
 
 #### Daily-averaged time series for all months ####
-
-##### LE ####
-jpeg(filename='R/fig/ggplot_day_LE.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-plot1 <- ggplot(df_day, aes(as.Date(date), LE)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(0,20) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = "LE") + theme_bw()
-plot1
-dev.off()
-
-##### H ####
-jpeg(filename='R/fig/ggplot_day_H.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-ggplot(df_day, aes(as.Date(date), H)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(0,5) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = "H") + theme_bw()
-dev.off()
-
-##### U ####
-
-jpeg(filename='R/fig/ggplot_day_U.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-ggplot(df_day, aes(as.Date(date), wind_speed)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(0,1) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = "U") + theme_bw()
-dev.off()
-
-##### deltae ####
-
-jpeg(filename='R/fig/ggplot_day_deltae.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-ggplot(df_day, aes(as.Date(date), delta_e)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(0,1.05) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = expression(Δ ~ e)) + theme_bw()
-dev.off()
-
-
-##### deltat ####
-
-jpeg(filename='R/fig/ggplot_day_deltat.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-ggplot(df_day, aes(as.Date(date), delta_T)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(-2,3) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = expression(Δ ~ T)) + theme_bw()
-dev.off()
-
-##### Udeltae ####
-jpeg(filename='R/fig/ggplot_day_udeltae.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-ggplot(df_day, aes(as.Date(date), U_deltaE)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(0,1) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = expression(U ~ Δ ~ e)) + theme_bw()
-dev.off()
-
-##### Udeltat ####
-
-jpeg(filename='R/fig/ggplot_day_udeltat.jpg', unit = 'cm', width = 18, 
-     height = 12, res = 360)
-par(mar = c(4,4,1,1))
-ggplot(df_day, aes(as.Date(date), U_deltaT)) + 
-  geom_line() + 
-  geom_smooth(col = 'navy', alpha = 0.3) +
-  ylim(-1,1) +
-  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
-  labs(x = " ", y = expression(U ~ Δ ~ T)) + theme_bw()
-dev.off()
+# 
+ ##### LE ####
+# jpeg(filename='R/fig/ggplot_day_LE.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# plot1 <- ggplot(df_day, aes(as.Date(date), LE)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(0,20) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = "LE") + theme_bw()
+# plot1
+# dev.off()
+# 
+ ##### H ####
+# jpeg(filename='R/fig/ggplot_day_H.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# ggplot(df_day, aes(as.Date(date), H)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(0,5) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = "H") + theme_bw()
+# dev.off()
+# 
+ ##### U ####
+# 
+# jpeg(filename='R/fig/ggplot_day_U.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# ggplot(df_day, aes(as.Date(date), wind_speed)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(0,1) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = "U") + theme_bw()
+# dev.off()
+# 
+ ##### deltae ####
+# 
+# jpeg(filename='R/fig/ggplot_day_deltae.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# ggplot(df_day, aes(as.Date(date), delta_e)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(0,1.05) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = expression(Δ ~ e)) + theme_bw()
+# dev.off()
+# 
+# 
+ ##### deltat ####
+# 
+# jpeg(filename='R/fig/ggplot_day_deltat.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# ggplot(df_day, aes(as.Date(date), delta_T)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(-2,3) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = expression(Δ ~ T)) + theme_bw()
+# dev.off()
+# 
+ ##### Udeltae ####
+# jpeg(filename='R/fig/ggplot_day_udeltae.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# ggplot(df_day, aes(as.Date(date), U_deltaE)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(0,1) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = expression(U ~ Δ ~ e)) + theme_bw()
+# dev.off()
+# 
+ ##### Udeltat ####
+# 
+# jpeg(filename='R/fig/ggplot_day_udeltat.jpg', unit = 'cm', width = 18, 
+#      height = 12, res = 360)
+# par(mar = c(4,4,1,1))
+# ggplot(df_day, aes(as.Date(date), U_deltaT)) + 
+#   geom_line() + 
+#   geom_smooth(col = 'navy', alpha = 0.3) +
+#   ylim(-1,1) +
+#   scale_x_date(labels=scales::date_format("%b %Y"), breaks = "1 month") +
+#   labs(x = " ", y = expression(U ~ Δ ~ T)) + theme_bw()
+# dev.off()
 
 #### Half-hourly-averaged time series for all months ####
 
@@ -125,6 +125,13 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour),LE)) + geom_point(color='gr
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0,23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), LE)) + 
+  geom_point(col="grey50", shape=3) + 
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(0,20) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = " ") + theme_bw()
+
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -139,10 +146,17 @@ x_positionMax <- as.POSIXct("2022-05-20 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$LE, na.rm = TRUE) - 35
 y_positionMax <- max(df$LE, na.rm = TRUE) + inset_height
 
+x_positionMin1 <- as.POSIXct("2022-05-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-08-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
@@ -177,6 +191,12 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour),H)) + geom_point(color='gre
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0,23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), H)) + 
+  geom_point(col="grey50", shape=3) + 
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(0,5) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = "H") + theme_bw()
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -191,10 +211,17 @@ x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$H, na.rm = TRUE) - 7
 y_positionMax <- max(df$H, na.rm = TRUE) + inset_height
 
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
@@ -230,6 +257,12 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour),delta_e)) +
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0, 23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), delta_e)) + 
+  geom_point(col="grey50", shape=3) +
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(0,1.05) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = expression(Δ ~ e)) + theme_bw()
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -244,10 +277,17 @@ x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$delta_e, na.rm = TRUE) - (inset_height)
 y_positionMax <- max(df$delta_e, na.rm = TRUE) + 1.15
 
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
@@ -284,6 +324,13 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour),delta_T)) +
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0, 23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), delta_T)) + 
+  geom_point(col="grey50", shape=3) +
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(-2,3) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = expression(Δ ~ T)) + theme_bw()
+
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -298,10 +345,17 @@ x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$delta_T, na.rm = TRUE) - 1
 y_positionMax <- max(df$delta_T, na.rm = TRUE) + 5.5
 
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
@@ -337,6 +391,12 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour), U_deltaE)) +
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0, 23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), U_deltaE)) + 
+  geom_point(col="grey50", shape=3) + 
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(0,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = expression(U ~ Δ ~ e)) + theme_bw()
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -351,10 +411,17 @@ x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$U_deltaE, na.rm = TRUE) - (inset_height)
 y_positionMax <- max(df$U_deltaE, na.rm = TRUE) + 1.5
 
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
@@ -390,6 +457,12 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour), U_deltaT)) +
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0, 23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), U_deltaT)) + 
+  geom_point(col="grey50", shape=3) +
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(-1,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = expression(U ~ Δ ~ T)) + theme_bw()
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -404,10 +477,17 @@ x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$U_deltaT, na.rm = TRUE) - (inset_height)
 y_positionMax <- max(df$U_deltaT, na.rm = TRUE) + 0.8
 
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
@@ -443,6 +523,13 @@ insetP <- ggplot(df_hourly_avg, aes(as.integer(hour), wind_speed)) +
   labs(x = "Hour", y = "") +
   theme_bw() + xlim(0, 23)
 
+plot1 <- ggplot(df_day, aes(as.Date(date), wind_speed)) + 
+  geom_point(col="grey50", shape=3) +
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(0,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = "U") + theme_bw()
+
 # combined plot
 
 # Create the main plot (mainP) and inset plot (insetP)
@@ -457,10 +544,17 @@ x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
 y_positionMin <- max(df$wind_speed, na.rm = TRUE) - (inset_height)
 y_positionMax <- max(df$wind_speed, na.rm = TRUE) + 1.5
 
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
 # Add the inset plot to the main plot
 mainP1 <- mainP +
   annotation_custom(ggplotGrob(insetP),
                     xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
                     ymin = y_positionMin, ymax = y_positionMax)
 
 mainP1
