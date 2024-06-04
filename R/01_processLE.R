@@ -8,7 +8,7 @@ library(dplyr)
 library(ggpubr)
 library(rstatix)
 library(lubridate)
-library(plyr)
+#library(plyr)
 library(openair)
 library(ggplot2)
 library(sjPlot)
@@ -135,8 +135,8 @@ df$H[which(df$qc_H == 2)] <- NA
 
 
 ###### WD filtering, higher than 45 and less than 315 ######
-#df$LE[df$wind_dir > 45 & df$wind_dir < 315] <- NA
-#df$H[df$wind_dir > 45 & df$wind_dir< 315] <- NA
+df$LE[df$wind_dir > 45 & df$wind_dir < 315] <- NA
+df$H[df$wind_dir > 45 & df$wind_dir< 315] <- NA
 
 ###### Rain filtering ######
 df$LE[df$P_RAIN_1_1_1 > 0] <- NA
@@ -164,8 +164,8 @@ rm(ea,es1,rh)
 
 
 #### Ce and CH calculation ####
-Ce <- df$LE/2.54 * 10^6 * df$wind_speed * df$water_vapor_density
-CH <- df$H/df$air_density * 1.0035 * 1000 * df$wind_speed * df$delta_T
+Ce <- df$LE/(2.54 * 10^6 * df$wind_speed * df$water_vapor_density)
+CH <- df$H/(df$air_density * 1.0035 * 1000 * df$wind_speed * df$delta_T)
 df <- cbind(df,Ce,CH)
 rm(Ce,CH)
 
