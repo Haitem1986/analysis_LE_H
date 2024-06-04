@@ -561,46 +561,141 @@ mainP1
 
 dev.off()
 
+##### z/L ####
+jpeg(filename='R/fig/ggplot_zL.jpg', unit = 'cm', width = 15, 
+     height = 10, res = 360)
+par(mar = c(4,4,1,1))
+
+df1 <- df
+df1$Z.L[is.na(df1$Z.L)] <- NA
+df1$Z.L[df$wind_dir > 45 & df$wind_dir < 315] <- NA
+df1$Z.L[df1$qc_H == 2] <- NA
+df1$Z.L[df1$qc_Tau == 2] <- NA
+
+# main plot
+mainP <- ggplot(df1, aes(date, Z.L)) + geom_point(color='grey50', shape=3) +
+  labs(x = "", y = bquote(paste("z/L"))) +
+  theme_bw() + 
+  xlim(as.POSIXct("2022-03-01"), as.POSIXct("2022-09-30")) + 
+  ylim(-10,10) +
+  scale_x_datetime(labels=scales::date_format("%b %Y"), breaks = "1 month") 
+
+# inset plot
+df_hourly_avg <- df1 %>%
+  filter(!is.na(date)) %>%
+  group_by(hour = as.factor(hour(date))) %>%
+  summarise(Z.L = mean(Z.L, na.rm = TRUE))
+
+insetP <- ggplot(df_hourly_avg, aes(as.integer(hour), Z.L)) + 
+  geom_point(color='grey50',shape=3) +
+  geom_smooth(span = 0.5, alpha = 0, col = 'navy') + 
+  labs(x = "Hour", y = "") +
+  theme_bw() + xlim(0, 23)
+
+plot1 <- ggplot(df_day, aes(as.Date(date), Z.L)) + 
+  geom_point(col="grey50", shape=3) +
+  geom_smooth(col = 'navy', alpha = 0.3) +
+  ylim(-2.5,1) +
+  scale_x_date(labels=scales::date_format("%b %Y"), breaks = "3 month") +
+  labs(x = " ", y = "z/L") + theme_bw()
+
+# combined plot
+
+# Create the main plot (mainP) and inset plot (insetP)
+
+# Specify the dimensions of the inset plot
+#inset_width <- 0.2  # Adjust the width as needed
+inset_height <- 0.005  # Adjust the height as needed
+
+# Calculate the x and y positions for the inset
+x_positionMin <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax <- as.POSIXct("2022-10-10 12:00:00", tz = "Asia/Kuala_Lumpur")
+y_positionMin <- 1.7 # min(df$Z.L, na.rm = TRUE) - (inset_height)
+y_positionMax <- 11 # max(df$Z.L, na.rm = TRUE) + 1.5
+
+x_positionMin1 <- as.POSIXct("2022-03-20 12:00:00", tz = "Asia/Kuala_Lumpur")
+x_positionMax1 <- as.POSIXct("2022-06-30 12:00:00", tz = "Asia/Kuala_Lumpur")
+
+
+# Add the inset plot to the main plot
+mainP1 <- mainP +
+  annotation_custom(ggplotGrob(insetP),
+                    xmin = x_positionMin, xmax = x_positionMax,
+                    ymin = y_positionMin, ymax = y_positionMax) +
+  annotation_custom(ggplotGrob(plot1),
+                    xmin = x_positionMin1, xmax = x_positionMax1,
+                    ymin = y_positionMin, ymax = y_positionMax)
+
+mainP1
+
+dev.off()
 #### Correlation Plots ####
 
 ##### LE and U ####
-jpeg(filename='R/fig/ggplot_lm_LE_U.jpg', unit = 'cm', width = 12, height = 12, 
-     res = 360)
+# jpeg(filename='R/fig/ggplot_lm_LE_U.jpg', unit = 'cm', width = 12, height = 12, 
+#      res = 360)
+# par(mar = c(4,4,1,1))
+# df_temp <- data.frame(LE = df$LE, wind_speed = df$wind_speed, z.L = df$Z.L)
+# df_temp <- na.omit(df_temp)
+# lm_model <- lm(LE ~ wind_speed, data = df_temp)
+# ggplot(df_temp, aes(wind_speed, LE)) + 
+#   geom_point(alpha=0.4, shape = 3) + 
+#   geom_smooth(color = 'navy', alpha = 0, 
+#               method = "lm", linetype = "dashed", se = TRUE) +
+#   ylab(bquote(paste("LE ", "(W ", m^-2, ")"))) +
+#   xlab(bquote(paste("U ", "(m ", s^-1, ")"))) + 
+#   coord_cartesian(xlim = c(0,3), ylim = c(-10,150)) +
+#   theme_bw()
+# dev.off()
+
+
+jpeg(filename='R/fig/ggplot_lm_LE_U.jpg', unit = 'cm', width = 12, height = 12, res = 360)
 par(mar = c(4,4,1,1))
-df_temp <- data.frame(LE = df$LE, wind_speed = df$wind_speed)
+df_temp <- data.frame(LE = df$LE, wind_speed = df$wind_speed, z.L = df$Z.L)
 df_temp <- na.omit(df_temp)
 lm_model <- lm(LE ~ wind_speed, data = df_temp)
-ggplot(df_temp, aes(wind_speed, LE)) + 
-  geom_point(alpha=0.4, shape = 3) + 
-  geom_smooth(color = 'navy', alpha = 0, 
-              method = "lm", linetype = "dashed", se = TRUE) +
+
+# Updated ggplot section
+ggplot(df_temp, aes(x = wind_speed, y = LE, color = ifelse(z.L > 0, "red", "blue"))) + 
+  geom_point(alpha=0.8, shape = 16, show.legend = FALSE) +  # Changed shape and removed legend
+  geom_smooth(method = "lm", linetype = "dashed", se = TRUE, color = 'navy', alpha = 0) +
+  scale_color_manual(values = c("red", "blue")) +
   ylab(bquote(paste("LE ", "(W ", m^-2, ")"))) +
   xlab(bquote(paste("U ", "(m ", s^-1, ")"))) + 
   coord_cartesian(xlim = c(0,3), ylim = c(-10,150)) +
   theme_bw()
+
 dev.off()
+
 
 ##### LE and deltae ####
 
-jpeg(filename='R/fig/ggplot_lm_LE_deltae.jpg', unit = 'cm', width = 12, height = 12, 
-     res = 360)
+
+jpeg(filename='R/fig/ggplot_lm_LE_deltae.jpg', unit = 'cm', width = 12, height = 12, res = 360)
 par(mar = c(4,4,1,1))
-ggplot(df, aes(delta_e, LE)) + geom_point(alpha=0.4,shape=3) + 
-  geom_smooth(color = 'navy',alpha=0, method = "lm", 
-              se= TRUE, linetype ="dashed") +
+df_temp <- data.frame(LE = df$LE, delta_e = df$delta_e, z.L = df$Z.L)
+df_temp <- na.omit(df_temp)
+lm_model <- lm(LE ~ delta_e, data = df_temp)
+ggplot(df_temp, aes(delta_e, LE, color = ifelse(z.L > 0, "red", "blue"))) + 
+  geom_point(alpha=0.8, shape = 16, show.legend = FALSE) +  # Filled circles, no legend
+  geom_smooth(color = 'navy', alpha = 0, method = "lm", se = TRUE, linetype = "dashed") +
+  scale_color_manual(values = c("red", "blue")) +  # Define manual colors
   ylab(bquote(paste("LE ", "(W ", m^-2, ")"))) +
   xlab(bquote(paste("Δe ", "(kPa)"))) + 
-  coord_cartesian(xlim=c(0,1.25), ylim=c(-10,150)) +
+  coord_cartesian(xlim = c(0,1.25), ylim = c(-10,150)) +
   theme_bw()
 dev.off()
+
 
 ##### LE and udeltae ####
 
 jpeg(filename='R/fig/ggplot_lm_LE_udeltae.jpg', unit = 'cm', width = 12, height = 12, res = 360)
 par(mar = c(4,4,1,1))
-ggplot(df, aes(U_deltaE, LE)) + geom_point(alpha=0.4, shape = 3) + 
+ggplot(df, aes(U_deltaE, LE, color = ifelse(Z.L > 0, "red", "blue"))) + 
+  geom_point(alpha=0.8, shape = 16, show.legend = FALSE) + 
   geom_smooth(color = 'navy',alpha=0, method = "lm", 
               se= TRUE, linetype ="dashed") +
+  scale_color_manual(values = c("red", "blue")) +
   ylab(bquote(paste("LE ", "(W ", m^-2, ")"))) +
   xlab(bquote(paste("UΔe ", "(m ", s^-1, " kPa)"))) +
   coord_cartesian(xlim=c(0,1.8), ylim=c(-10,150)) +
@@ -608,24 +703,17 @@ ggplot(df, aes(U_deltaE, LE)) + geom_point(alpha=0.4, shape = 3) +
 dev.off()
 
 
-
-# jpeg(filename='FIG/ggplot_LE_ustar.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(`u*`,`LE`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'grey',alpha=0, method = "lm") +
-#   coord_cartesian(xlim=c(0,0.2), ylim=c(-12,50))+
-#   theme_bw()
-# dev.off()
-
 ##### H and U ####
 jpeg(filename='R/fig/ggplot_lm_H_U.jpg', unit = 'cm', width = 12, height = 12, 
      res = 360)
 par(mar = c(4,4,1,1))
 
 
-ggplot(df, aes(wind_speed, H)) + geom_point(alpha=0.4, shape = 3) + 
+ggplot(df, aes(wind_speed, H, color = ifelse(Z.L > 0, "red", "blue"))) + 
+  geom_point(alpha=0.8, shape = 16, show.legend = FALSE) + 
   geom_smooth(color = 'navy',alpha=0, method = "lm", 
               se= TRUE, linetype ="dashed") +
+  scale_color_manual(values = c("red", "blue")) +
   ylab(bquote(paste("H ", "(W ", m^-2, ")"))) +
   xlab(bquote(paste("U ", "(m ", s^-1, ")"))) +
   coord_cartesian(xlim=c(0,3), ylim=c(-5,20)) +
@@ -640,9 +728,11 @@ jpeg(filename='R/fig/ggplot_lm_H_deltaT.jpg', unit = 'cm', width = 12, height = 
      res = 360)
 par(mar = c(4,4,1,1))
 
-ggplot(df, aes(delta_T, H)) + geom_point(alpha=0.4, shape = 3) + 
+ggplot(df, aes(delta_T, H, color = ifelse(Z.L > 0, "red", "blue"))) + 
+  geom_point(alpha=0.8, shape = 16, show.legend = FALSE) + 
   geom_smooth(color = 'navy',alpha=0, method = "lm", 
               se= TRUE, linetype ="dashed") +
+  scale_color_manual(values = c("red", "blue")) +
   ylab(bquote(paste("H ", "(W ", m^-2, ")"))) +
   xlab(bquote(paste("ΔT ", "(K)"))) +
   coord_cartesian(xlim=c(-3,3), ylim=c(-5,20)) +
@@ -655,61 +745,14 @@ jpeg(filename='R/fig/ggplot_lm_H_udeltaT.jpg', unit = 'cm', width = 12, height =
      res = 360)
 par(mar = c(4,4,1,1))
 
-ggplot(df, aes(U_deltaT, H)) + geom_point(alpha=0.4, shape = 3) + 
+ggplot(df, aes(U_deltaT, H, color = ifelse(Z.L > 0, "red", "blue"))) + 
+  geom_point(alpha=0.8, shape = 16, show.legend = FALSE) + 
   geom_smooth(color = 'navy',alpha=0, method = "lm", 
               se= TRUE, linetype ="dashed") +
+  scale_color_manual(values = c("red", "blue")) +
   ylab(bquote(paste("H ", "(W ", m^-2, ")"))) +
   xlab(bquote(paste("UΔT ", "(m ", s^-1, "K)"))) +
   coord_cartesian(xlim=c(-2.5,8), ylim=c(-5,20)) +
   theme_bw()
 
 dev.off()
-
-# jpeg(filename='FIG/ggplot_H_ustar.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(`u*`,`H`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'grey',alpha=0, method = "lm") +
-#   coord_cartesian(xlim=c(0,0.15), ylim=c(-7,20))+
-#   theme_bw()
-# dev.off()
-
-
-# ##### ustar ####
-# 
-# jpeg(filename='FIG/ggplot_ustar_U.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(wind_speed,`u*`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'green',alpha=0, method = "lm") +
-#   theme_bw()
-# dev.off()
-# 
-# 
-# jpeg(filename='FIG/ggplot_ustar_deltae.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(delta_e,`u*`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'green',alpha=0, method = "lm") +
-#   theme_bw()
-# dev.off()
-# 
-# 
-# jpeg(filename='FIG/ggplot_ustar_deltat.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(delta_T,`u*`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'green',alpha=0, method = "lm") +
-#   theme_bw()
-# dev.off()
-# 
-# jpeg(filename='FIG/ggplot_ustar_udeltae.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(U_deltaE,`u*`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'green',alpha=0, method = "lm") +
-#   theme_bw()
-# dev.off()
-# 
-# 
-# jpeg(filename='FIG/ggplot_ustar_udeltat.jpg', unit = 'cm', width = 10, height = 10, res = 360)
-# par(mar = c(4,4,1,1))
-# ggplot(df, aes(U_deltaT,`u*`)) + geom_point(alpha=0.2) + 
-#   geom_smooth(color = 'green',alpha=0, method = "lm") +
-#   theme_bw()
-# dev.off()
